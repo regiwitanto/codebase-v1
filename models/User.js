@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
@@ -33,6 +34,8 @@ const userSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
+userSchema.plugin(mongoosePaginate);
 
 userSchema.pre('save', function(next) {
   const user = this;
