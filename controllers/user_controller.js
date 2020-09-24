@@ -36,7 +36,7 @@ const getAllUser = async(req, res) => {
   try {
     const { searchBy, search = '', page, limit } = req.query;
     if (page == 0) {
-      return response.badRequest(res, null, 'Page must start from 1');
+      return response.badRequest(res, null, 'Page must start from 1.');
     }
 
     const users = await User.paginate(
