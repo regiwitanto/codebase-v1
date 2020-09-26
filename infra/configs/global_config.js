@@ -6,8 +6,8 @@ const config = {
   basicAuthApi: [
     {
       username: process.env.BASIC_AUTH_USERNAME,
-      password: process.env.BASIC_AUTH_PASSWORD
-    }
+      password: process.env.BASIC_AUTH_PASSWORD,
+    },
   ],
   publicKey: process.env.PUBLIC_KEY_PATH,
   privateKey: process.env.PRIVATE_KEY_PATH,
@@ -16,4 +16,4 @@ const config = {
 
 const store = new confidence.Store(config);
 
-exports.get = key => store.get(key);
+exports.get = (key) => store.get(key);

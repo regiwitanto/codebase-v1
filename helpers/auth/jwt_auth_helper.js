@@ -4,12 +4,18 @@ const response = require('../utils/response');
 const User = require('../../models/User');
 
 const generateToken = async (payload) => {
-  const token = await jwt.sign(payload, config.get('/privateKey'), { expiresIn: 7 * 24 * 60 * 60 });
+  const token = await jwt.sign(payload, config.get('/privateKey'), {
+    expiresIn: 7 * 24 * 60 * 60,
+  });
   return token;
 };
 
 const getToken = (headers) => {
-  if (headers && headers.authorization && headers.authorization.includes('Bearer')) {
+  if (
+    headers &&
+    headers.authorization &&
+    headers.authorization.includes('Bearer')
+  ) {
     const parted = headers.authorization.split(' ');
     if (parted.length === 2) {
       return parted[1];
@@ -34,7 +40,7 @@ const verifyToken = async (req, res, next) => {
       return response.unauthorized(res, null, 'Token is not valid!');
     }
     const userId = decodedToken.sub;
-    const user = await User.findOne({'userId': userId});
+    const user = await User.findOne({ userId: userId });
     if (!user) {
       return response.forbidden(res, null, 'Invalid token!');
     }
@@ -46,5 +52,5 @@ const verifyToken = async (req, res, next) => {
 
 module.exports = {
   generateToken,
-  verifyToken
+  verifyToken,
 };
